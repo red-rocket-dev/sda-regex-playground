@@ -55,12 +55,16 @@ public class Main {
         }
         System.out.println(sum);
         //System.out.println(Arrays.toString(numbers));
-        //3. Chciałbym sprawdzić czy została wprowadzony poprawny adres według wzoru ul. NazwaUlicy numerDomu/opcjonalnieNumerMieszkania
+        //3. Chciałbym sprawdzić czy został wprowadzony poprawny adres według wzoru ul. NazwaUlicy numerDomu/opcjonalnieNumerMieszkania
         System.out.println("3.");
         String streetTest1 = "ul. Grabowa 1";
         String streetTest2 = "ul$ Kwiatowa 5";
-        String streetTest3 = "ul. Opolska 5/12";
+        String streetTest3 = "ul. Opolska 51/12";
+        //ul. NazwaUlicy numerDomu/opcjonalnieNumerMieszkania
+        boolean matches = streetTest3.matches("ul\\. .{3,} \\d+(/\\d+)?");
+        System.out.println(matches);
 
+        //ul. Grabowa 122123
 
         // .+? -> a
 

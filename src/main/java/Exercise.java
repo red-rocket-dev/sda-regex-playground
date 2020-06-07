@@ -46,7 +46,7 @@ public class Exercise {
     //1. Znajdź najwyższą ocenę Joli
     public static int gradeExerciseMax() {
         //1. Najpierw wyekstraktuj z Stringa testString1 same liczby i przerzuc je do tablicy intow (osobnej)
-        //2. Nastepnie znajdz najwyzsza ocene
+        //2. Nastepnie znajdz najwyzsza ocene Math.max
         //Podpowiedz: uzyj metody split
         return 0;//ta linijka jest tylko po to, żeby nie podkreslało
     }

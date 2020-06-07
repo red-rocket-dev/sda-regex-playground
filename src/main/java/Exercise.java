@@ -1,14 +1,11 @@
 import java.util.Arrays;
-
 public class Exercise {
     private static final String testString1 = "Oceny Joli to: 5,5,5,5,2,3,6";
     private static final String[] fileNames = {"grafika.jpg", "koty.png", "MyCode.java", "smieszne-link.txt",
             "wydatki.csv", "MainMain.java", "test-10-10-2010.log", "logowanie-13-05-2010.log", "Student.java",
             "formatowanie.exe", "smieszne-linki-kot.png", "App-20-01-2020.log"};
-
     // Pomoc:
     // Do zamiany String na int uzyj metody Integer.parseInt(), np Integer.parseInt("1") zwroci 1
-
     public static void main(String[] args) {
         //to uruchamiamy, żeby sprawdzić poprawne wykonanie zadania, nic nie modyfikujemy w tym mainie:)
         int minGrade = gradeExerciseMin();
@@ -22,64 +19,109 @@ public class Exercise {
             System.out.println("Zadanie 2 zrobione");
         }
         String[] javaFiles = findJavaFiles();
-        String[] expectedJavaFiles = {"MainMain.java", "MyCode.java"};
+        String[] expectedJavaFiles = {"MyCode.java","MainMain.java"};
         System.out.println("Java files:");
         System.out.println(Arrays.toString(javaFiles));
         if (Arrays.equals(expectedJavaFiles, javaFiles)) {
             System.out.println("Zadanie 3 zrobione");
         }
-        String[] expectedCatFiles = {"smieszne-linki-kot.png", "koty.png"};
+        String[] expectedCatFiles = {"koty.png","smieszne-linki-kot.png"};
         String[] catFiles = findCatFiles();
         System.out.println("Cat files:");
         System.out.println(Arrays.toString(catFiles));
         if (Arrays.equals(catFiles, expectedCatFiles)) {
-            System.out.println("Zadanie 5 zrobione");
+            System.out.println("Zadanie 4 zrobione");
         }
         int patternFiles = findPatternFiles();
         System.out.println("Pattern files: " + patternFiles);
         if (patternFiles == 3) {
             System.out.println("Zadanie 5 zrobione");
         }
-
     }
-
     //1. Znajdź najwyższą ocenę Joli
     public static int gradeExerciseMax() {
         //1. Najpierw wyekstraktuj z Stringa testString1 same liczby i przerzuc je do tablicy intow (osobnej)
+        String[] split = testString1.replaceAll("\\D","").split("");
+        int[] grades = new int[split.length];
+        for (int i = 0; i < split.length; i++) {
+            grades[i] = Integer.parseInt(split[i]);
+        }
         //2. Nastepnie znajdz najwyzsza ocene Math.max
+        int max = grades[0];
+        for (int i = 1; i < grades.length; i++) {
+            max = Math.max(max,grades[i]);
+        }
         //Podpowiedz: uzyj metody split
-        return 0;//ta linijka jest tylko po to, żeby nie podkreslało
+        return max;
     }
-
     //2. Znajdź najniższą ocenę Joli
     public static int gradeExerciseMin() {
         //1. Najpierw wyekstraktuj z Stringa testString1 same liczby i przerzuc je do tablicy intow (osobnej)
+        String[] split = testString1.replaceAll("\\D","").split("");
+        int[] grades = new int[split.length];
+        for (int i = 0; i < split.length; i++) {
+            grades[i] = Integer.parseInt(split[i]);
+        }
         //2. Nastepnie znajdz najnizsza ocene
+        int min = grades[0];
+        for (int i = 1; i < grades.length; i++) {
+            min = Math.min(min,grades[i]);
+        }
         //Podpowiedz: uzyj metody split
-        return 0;//ta linijka jest tylko po to, żeby nie podkreslało
+        return min;//ta linijka jest tylko po to, żeby nie podkreslało
     }
-
     //3. Zwróć nazwy plików z rozszerzeniem .java, które zawieraja w sobie literę "M"
+    /*
+    fileNames = {"grafika.jpg", "koty.png", "MyCode.java", "smieszne-link.txt",
+            "wydatki.csv", "MainMain.java", "test-10-10-2010.log", "logowanie-13-05-2010.log", "Student.java",
+            "formatowanie.exe", "smieszne-linki-kot.png", "App-20-01-2020.log"};
+     */
     public static String[] findJavaFiles() {
         //1. Utwórz nową tablicę javaFiles, która będzie mogła pomieścić maksymalnie tyle elementów ile ma tablica fileNames
+        String[] javaFiles = new String[fileNames.length];
         //2. Sprawdzaj element po elemencie za pomocą pętli czy zadane wyrazenie regularne (lancuch konczy sie na .java i ma w srodku literę "M")
+        int currentJavaFilesLength = 0;
+        for (int i = 0; i < fileNames.length; i++) {
+            if(fileNames[i].matches(".*M.*\\.java")){
+                javaFiles[currentJavaFilesLength++]=fileNames[i];
+            }
+        }
+        String[] javaFilesReducedArray = new String[currentJavaFilesLength];
+        //TODO: jak podpiac zrodla z JDK do intellij
+        System.arraycopy(javaFiles, 0, javaFilesReducedArray, 0, currentJavaFilesLength);
         //3. Zwróć tablicę
-        return new String[0];//ta linijka jest tylko po to, żeby nie podkreslało
+        return javaFilesReducedArray;
     }
-
     //4. Zwróć nazwy plików z rozszerzeniem .png, które zawierają słowo "kot"
     public static String[] findCatFiles() {
         //1. Utwórz nową tablicę javaFiles, która będzie mogła pomieścić maksymalnie tyle elementów ile ma tablica fileNames
+        String[] javaFiles = new String[fileNames.length];
         //2. Sprawdzaj element po elemencie za pomocą pętli czy zadane wyrazenie regularne (lancuch konczy sie na .png i ma w srodku słowo "kot")
+        int currentJavaFilesLength = 0;
+        for (int i = 0; i < fileNames.length; i++) {
+            if(fileNames[i].matches(".*kot.*\\.png")){
+                javaFiles[currentJavaFilesLength++]=fileNames[i];
+            }
+        }
+        String[] javaFilesReducedArray = new String[currentJavaFilesLength];
+        System.arraycopy(javaFiles, 0, javaFilesReducedArray, 0, currentJavaFilesLength);
+        // albo zamiast powyzszej linijki javaFilesReducedArray = Arrays.copyOf(javaFiles, currentJavaFilesLength);
         //3. Zwróć tablicę
-        return new String[0];//ta linijka jest tylko po to, żeby nie podkreslało
+        return javaFilesReducedArray;//ta linijka jest tylko po to, żeby nie podkreslało
     }
-
     //5. Zlicz nazwy plikow, ktorych nazwa spelnia szablon <jakiestamlitery><dzień>-<miesiąc>-<rok>.<dowolnerozszerzenie>
     public static int findPatternFiles() {
         //1. Utwórz nową zmienną licznik, która będzie służyła do przechowywania aktualnej ilości znalezionych plikow, które spełniają założenie zadania
+        int counter = 0;
         //2. Sprawdzaj element po elemencie za pomocą pętli czy zadane wyrazenie regularne (lancuch spelnia: <jakiestamlitery><dzień>-<miesiąc>-<rok>.<dowolnerozszerzenie>)
+        // np. "logowanie-13-05-2010.log"
+        //<jakiestamlitery><dzień>-<miesiąc>-<rok>.<dowolnerozszerzenie>
+        for (int i = 0; i < fileNames.length; i++) {
+            if(fileNames[i].matches("[A-Za-z]+-[0-3]\\d-[0-1]\\d-\\d{4}\\..+")){
+                counter++;
+            }
+        }
         //3. Zwróć liczbe znalezionych plikow
-        return 0;//ta linijka jest tylko po to, żeby nie podkreslało
+        return counter;//ta linijka jest tylko po to, żeby nie podkreslało
     }
 }

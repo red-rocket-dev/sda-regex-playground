@@ -45,18 +45,36 @@ public class Exercise {
 
     //1. Znajdź najwyższą ocenę Joli
     public static int gradeExerciseMax() {
-        //1. Najpierw wyekstraktuj z Stringa testString1 same liczby i przerzuc je do tablicy intow (osobnej)
-        //2. Nastepnie znajdz najwyzsza ocene Math.max
-        //Podpowiedz: uzyj metody split
-        return 0;//ta linijka jest tylko po to, żeby nie podkreslało
+        String onlyDigitsString = testString1.replaceAll("\\D", "");
+        String[] digits = onlyDigitsString.split("");
+        int maxGrade = -1;
+        for (int i = 0; i < digits.length; i++) {
+            int grade = Integer.parseInt(digits[i]);
+            maxGrade = Math.max(grade, maxGrade);
+        }
+        return maxGrade;
+    }
+
+    // tego nie uzywamy, ale jakby ktos chcial podejrzec jak tylko zamienic string na liczbe
+    private static int[] convertStringArrayToIntArray(String[] arrayToConvert) {
+        int[] convertedArray = new int[arrayToConvert.length];
+        for (int i = 0; i < arrayToConvert.length; i++) {
+            convertedArray[i] = Integer.parseInt(arrayToConvert[i]);
+        }
+        return convertedArray;
     }
 
     //2. Znajdź najniższą ocenę Joli
     public static int gradeExerciseMin() {
         //1. Najpierw wyekstraktuj z Stringa testString1 same liczby i przerzuc je do tablicy intow (osobnej)
+        String[] gradesString = testString1.replaceAll("\\D", "").split("");
         //2. Nastepnie znajdz najnizsza ocene
-        //Podpowiedz: uzyj metody split
-        return 0;//ta linijka jest tylko po to, żeby nie podkreslało
+        int min = Integer.parseInt(gradesString[0]);
+        for (int i = 1; i < gradesString.length; i++) {
+            int grade = Integer.parseInt(gradesString[i]);
+            min = Math.min(min, grade);
+        }
+        return min;//ta linijka jest tylko po to, żeby nie podkreslało
     }
 
     //3. Zwróć nazwy plików z rozszerzeniem .java, które zawieraja w sobie literę "M"
